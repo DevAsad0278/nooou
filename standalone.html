@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Happy Birthday Nisha! 💗 | A Special Surprise Just For You</title>
+  <meta name="description" content="A dreamy, heartfelt interactive birthday surprise website made with love for dear Nisha." />
+  
+  <!-- Google Fonts: Inter & Outfit & Great Vibes for romantic/sweet cursive vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Ambient Audio & Sound Control (Synthesizer Web Audio API fallback + optional mp3) -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="assets/audio/birthday-music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Top Floating HUD: Music Toggle & Progress Dots -->
+  <header class="top-hud" aria-label="Controls and progress">
+    <div class="hud-brand">
+      <span class="sparkle-icon">✨</span>
+      <span class="hud-title">Nisha's Little World</span>
+    </div>
+
+    <!-- Step Progress Dots -->
+    <nav class="scene-progress" aria-label="Surprise progress tracker">
+      <span class="dot active" data-step="1" title="Welcome"></span>
+      <span class="dot" data-step="2" title="The Birthday Cake"></span>
+      <span class="dot" data-step="3" title="Special Question"></span>
+      <span class="dot" data-step="4" title="Heartfelt Letter"></span>
+      <span class="dot" data-step="5" title="Sweet Memories"></span>
+      <span class="dot" data-step="6" title="Final Wishes"></span>
+    </nav>
+
+    <!-- Music Control Button -->
+    <button id="musicToggleBtn" class="btn-icon" aria-label="Toggle background music" title="Toggle Music">
+      <span class="music-icon" id="musicIcon">🎵</span>
+      <span class="music-state" id="musicLabel">Music: Off</span>
+    </button>
+  </header>
+
+  <!-- Background Animated Canvas (Hearts, Sparkles, Floating Stars) -->
+  <canvas id="ambientCanvas" aria-hidden="true"></canvas>
+
+  <!-- Confetti Canvas Layer -->
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <!-- MAIN SCENE CONTAINER -->
+  <main class="surprise-container" id="mainContainer">
+
+    <!-- ==============================================
+         SCENE 1: SECRET BIRTHDAY WELCOME
+    =============================================== -->
+    <section class="scene-card active" id="scene1" aria-labelledby="scene1Heading">
+      <div class="card-inner glass-morphism">
+        <div class="floating-badge">💌 A Private Note for You</div>
+        <div class="avatar-glow-ring">
+          <span class="avatar-emoji">🌸</span>
+        </div>
+        
+        <h1 id="scene1Heading" class="scene-title gradient-text glow">
+          Hey Nisha... 💗
+        </h1>
+        
+        <p class="scene-subtext">
+          I made a little something just for you.
+        </p>
+        
+        <p class="scene-question-hint">
+          Ready for a tiny surprise?
+        </p>
+
+        <div class="btn-group">
+          <button id="startSurpriseBtn" class="primary-btn pulse-glow" aria-label="Open your birthday surprise">
+            <span>Open Your Surprise</span>
+            <span class="btn-sparkle">✨</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==============================================
+         SCENE 2: INTERACTIVE BIRTHDAY CAKE
+    =============================================== -->
+    <section class="scene-card" id="scene2" aria-labelledby="scene2Heading">
+      <div class="card-inner glass-morphism">
+        <div class="floating-badge">🎂 Make A Wish</div>
+        
+        <h2 id="scene2Heading" class="scene-tagline">
+          Someone very special deserves the sweetest birthday... 🎂
+        </h2>
+
+        <!-- Interactive Cake Container -->
+        <div class="cake-interactive-wrapper" id="cakeWrapper" role="button" tabindex="0" aria-label="Birthday cake. Click to light the candles and make a wish!">
+          
+          <div class="cake-assembly" id="cakeAssembly">
+            <!-- Sparkle burst indicator -->
+            <div class="cake-aura" id="cakeAura"></div>
+
+            <!-- Plate -->
+            <div class="cake-plate"></div>
+
+            <!-- Layer 3 (Bottom) -->
+            <div class="cake-tier tier-bottom">
+              <div class="tier-frosting"></div>
+              <div class="tier-ribbon"></div>
+              <div class="tier-decorations">
+                <span class="dot-sugar"></span><span class="dot-sugar"></span>
+                <span class="dot-sugar"></span><span class="dot-sugar"></span>
+                <span class="dot-sugar"></span>
+              </div>
+            </div>
+
+            <!-- Layer 2 (Middle) -->
+            <div class="cake-tier tier-middle">
+              <div class="tier-frosting"></div>
+              <div class="tier-stripes"></div>
+              <div class="tier-decorations">
+                <span class="sugar-pearl"></span><span class="sugar-pearl"></span>
+                <span class="sugar-pearl"></span><span class="sugar-pearl"></span>
+              </div>
+            </div>
+
+            <!-- Layer 1 (Top) -->
+            <div class="cake-tier tier-top">
+              <div class="tier-frosting"></div>
+              <div class="tier-drips">
+                <div class="drip drip1"></div>
+                <div class="drip drip2"></div>
+                <div class="drip drip3"></div>
+                <div class="drip drip4"></div>
+              </div>
+              <div class="top-berries">
+                <span class="berry b1">🍓</span>
+                <span class="berry b2">✨</span>
+                <span class="berry b3">🍓</span>
+              </div>
+            </div>
+
+            <!-- Candles Row -->
+            <div class="candles-rack">
+              <div class="candle c1">
+                <div class="flame unlit" id="flame1"></div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick"></div>
+              </div>
+              <div class="candle c2">
+                <div class="flame unlit" id="flame2"></div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick main-candle"></div>
+              </div>
+              <div class="candle c3">
+                <div class="flame unlit" id="flame3"></div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick"></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="cake-hint" id="cakeClickHint">
+            👉 Tap anywhere on the cake to light the candles! 🕯️✨
+          </p>
+        </div>
+
+        <!-- Animated Announcement revealed after click -->
+        <div class="cake-message-box hidden" id="cakeMessageBox">
+          <div class="typewriter-line1" id="cakeTypeLine1"></div>
+          <div class="typewriter-line2" id="cakeTypeLine2"></div>
+          
+          <button id="toScene3Btn" class="primary-btn mt-md animate-pop hidden" aria-label="Continue to next surprise">
+            <span>There's More for You</span>
+            <span class="btn-sparkle">💌</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==============================================
+         SCENE 3: A FUN YES OR NO QUESTION
+    =============================================== -->
+    <section class="scene-card" id="scene3" aria-labelledby="scene3Question">
+      <div class="card-inner glass-morphism question-container" id="questionCard">
+        <div class="floating-badge">🎁 A Little Question</div>
+
+        <!-- Floating Gift Box -->
+        <div class="gift-box-wrapper" id="giftBox" aria-hidden="true">
+          <div class="gift-lid" id="giftLid">
+            <div class="gift-ribbon-bow">🎀</div>
+          </div>
+          <div class="gift-body">
+            <div class="gift-ribbon-vertical"></div>
+            <div class="gift-ribbon-horizontal"></div>
+          </div>
+          <div class="gift-sparkles" id="giftSparkles"></div>
+        </div>
+
+        <h2 id="scene3Question" class="scene-question-title">
+          Nisha, are you ready to see how special you are to me? 🥹💗
+        </h2>
+
+        <!-- Playful status response message -->
+        <div class="playful-feedback" id="playfulFeedback" aria-live="polite"></div>
+
+        <!-- Interactive Question Buttons Area -->
+        <div class="question-buttons-area" id="btnPlayfield">
+          <button id="yesBtn" class="primary-btn yes-action-btn pulse-glow" aria-label="Yes, show me the surprise">
+            <span>YES, SHOW ME! 💖</span>
+          </button>
+          
+          <button id="noBtn" class="secondary-btn no-action-btn" aria-label="No button">
+            <span>NO 🙈</span>
+          </button>
+        </div>
+
+        <p class="accessible-hint">Tip: Don't be shy, the pink button is calling your name! 💕</p>
+      </div>
+    </section>
+
+
+    <!-- ==============================================
+         SCENE 4: THE HEARTFELT LETTER
+    =============================================== -->
+    <section class="scene-card" id="scene4" aria-labelledby="envelopePrompt">
+      <div class="card-inner glass-morphism letter-scene-layout">
+        <div class="floating-badge">💌 Letter From Tania</div>
+        
+        <!-- Interactive Envelope -->
+        <div class="envelope-outer" id="envelopeWrapper" role="button" tabindex="0" aria-label="Click envelope to open your letter">
+          <div class="envelope-flap" id="envelopeFlap"></div>
+          <div class="envelope-seal" id="envelopeSeal">
+            <span>N</span>
+          </div>
+          <div class="envelope-pocket"></div>
+          <div class="envelope-invitation-text" id="envelopePrompt">
+            Tap the golden seal to open your letter ✉️
+          </div>
+        </div>
+
+        <!-- The Letter Parchment (Revealed on click) -->
+        <article class="letter-sheet hidden" id="letterSheet" aria-label="Birthday letter for Nisha">
+          <div class="letter-header-decor">
+            <span class="letter-stamp">🌸 Special Edition</span>
+            <span class="letter-date" id="letterDate">Today & Forever 💖</span>
+          </div>
+
+          <div class="letter-body-scrollable">
+            <div id="letterTypewriterContent" class="letter-text-content">
+              <!-- Typewriter or direct text gets injected here -->
+            </div>
+          </div>
+
+          <div class="letter-signature-block">
+            <div class="letter-footer-note">Made with love, just for you ✨</div>
+          </div>
+
+          <!-- Letter Action Bar -->
+          <div class="letter-actions" id="letterActions">
+            <button id="replayLetterBtn" class="icon-sub-btn" aria-label="Replay letter typing animation" title="Replay letter typing">
+              <span>Replay Letter ↺</span>
+            </button>
+            <button id="toScene5Btn" class="primary-btn" aria-label="Go to photo memory gallery">
+              <span>See Our Memories 📸</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ==============================================
+         SCENE 5: OUR LITTLE MEMORY GALLERY
+    =============================================== -->
+    <section class="scene-card" id="scene5" aria-labelledby="galleryHeading">
+      <div class="card-inner glass-morphism">
+        <div class="floating-badge">📸 Precious Moments</div>
+
+        <h2 id="galleryHeading" class="scene-title">
+          Our Little Memory Gallery 🌸
+        </h2>
+        <p class="scene-subtext">
+          Every memory with you is wrapped in laughter, care, and love.
+        </p>
+
+        <!-- Polaroid Carousel / Gallery -->
+        <div class="gallery-wrapper">
+          <div class="gallery-controls-top">
+            <button id="galleryPrevBtn" class="nav-arrow-btn" aria-label="Previous photo">‹</button>
+            <span class="gallery-counter" id="galleryCounter">1 / 4</span>
+            <button id="galleryNextBtn" class="nav-arrow-btn" aria-label="Next photo">›</button>
+          </div>
+
+          <div class="polaroid-stage" id="polaroidStage">
+            <!-- Dynamic Polaroids injected by JavaScript -->
+          </div>
+
+          <div class="gallery-thumbnails" id="galleryThumbnails" aria-label="Photo thumbnails">
+            <!-- Dynamic Mini Thumbs -->
+          </div>
+        </div>
+
+        <div class="gallery-footer-action">
+          <button id="toScene6Btn" class="primary-btn mt-md pulse-glow" aria-label="Go to final birthday wish">
+            <span>One Last Surprise Ahead ✨</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==============================================
+         SCENE 6: BIRTHDAY WISHES AND FINAL SURPRISE
+    =============================================== -->
+    <section class="scene-card" id="scene6" aria-labelledby="finalSurpriseTitle">
+      <div class="card-inner glass-morphism final-scene-layout">
+        <!-- Floating celebratory balloons -->
+        <div class="balloons-backdrop" aria-hidden="true">
+          <span class="balloon b-pink">🎈</span>
+          <span class="balloon b-purple">🎈</span>
+          <span class="balloon b-gold">🎈</span>
+          <span class="balloon b-pink2">🎈</span>
+        </div>
+
+        <div class="floating-badge">🎉 Celebrations & Forever Love</div>
+
+        <!-- Glowing Cake Illustration -->
+        <div class="mini-glowing-cake" aria-hidden="true">
+          <div class="glow-halo"></div>
+          <span class="cake-big-icon">🎂</span>
+        </div>
+
+        <h1 id="finalSurpriseTitle" class="scene-title gradient-text glow large-title">
+          Happy Birthday, Nisha! 💗
+        </h1>
+
+        <p class="final-wishes-sub">
+          May this year bring you infinite joy, blooming smiles, and every dream you cherish!
+        </p>
+
+        <!-- Playful Birthday Wish Card -->
+        <div class="playful-wish-card">
+          <div class="wish-quote-symbol">❝</div>
+          <p class="wish-card-text">
+            Dear Nisha, may your life be as beautiful as your heart, your days as bright as your smile, and your future as wonderful as you deserve. Happy Birthday! 💗
+          </p>
+          <div class="wish-card-sign">
+            — Forever your little sister-like friend, <strong>Tania</strong> 🌸
+          </div>
+        </div>
+
+        <!-- Replay & Navigate Buttons -->
+        <div class="final-actions-grid">
+          <button id="readLetterAgainBtn" class="secondary-btn" aria-label="Read Tania's letter again">
+            <span>Read My Letter Again 💌</span>
+          </button>
+          
+          <button id="reliveSurpriseBtn" class="primary-btn pulse-glow" aria-label="Relive the entire surprise from the beginning">
+            <span>Relive the Surprise ✨</span>
+          </button>
+
+          <button id="celebrateConfettiBtn" class="celebrate-btn" aria-label="Trigger confetti celebration">
+            <span>Throw Confetti! 🎊</span>
+          </button>
+        </div>
+
+        <footer class="final-site-footer">
+          <p>Handcrafted with endless love for Nisha's Birthday • © Tania</p>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL FOR POLAROIDS -->
+  <div class="lightbox-modal hidden" id="lightboxModal" role="dialog" aria-modal="true" aria-labelledby="lightboxCaption">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxCloseBtn" aria-label="Close photo preview">✕</button>
+      <div class="lightbox-img-frame" id="lightboxFrame">
+        <!-- Rendered image or graceful fallback card -->
+      </div>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <!-- Main JavaScript Logic -->
+  <script src="js/script.js"></script>
+</body>
+</html>
+
